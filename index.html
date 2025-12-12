@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catch The Button</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #1e1e2f, #111118);
+        font-family: Poppins, sans-serif;
+        overflow: hidden;
+        user-select: none;
+    }
+
+    .game-box {
+        width: 85vw;
+        height: 70vh;
+        border-radius: 20px;
+        background: rgba(255,255,255,0.05);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.1);
+        animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.9); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    .btn {
+        position: absolute;
+        padding: 18px 30px;
+        font-size: 18px;
+        border: none;
+        cursor: pointer;
+        border-radius: 50px;
+        background: linear-gradient(135deg, #00a2ff, #0051ff);
+        color: white;
+        font-weight: 600;
+        box-shadow: 0 10px 25px rgba(0, 162, 255, 0.5);
+        transition: 0.25s ease;
+    }
+
+    .btn:hover {
+        transform: scale(1.15) rotate(3deg);
+        background: linear-gradient(135deg, #4ecbff, #006eff);
+        box-shadow: 0 12px 32px rgba(0,162,255,0.8);
+    }
+
+    .btn:active {
+        transform: scale(0.9);
+    }
+
+    h1 {
+        position: absolute;
+        top: 10px;
+        width: 100%;
+        text-align: center;
+        color: white;
+        font-size: 28px;
+        letter-spacing: 1px;
+        text-shadow: 0 0 10px rgba(0,162,255,0.6);
+        animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+        from { text-shadow: 0 0 8px #00a2ff; }
+        to { text-shadow: 0 0 18px #0080ff; }
+    }
+</style>
+
+</head>
+<body>
+
+<div class="game-box">
+    <h1>Catch The Button ✨</h1>
+
+    <button class="btn" id="catchBtn">Catch Me!</button>
+</div>
+
+<script>
+    const btn = document.getElementById("catchBtn");
+    const box = document.querySelector(".game-box");
+
+    function moveButton() {
+        const boxRect = box.getBoundingClientRect();
+        const btnWidth = btn.offsetWidth;
+        const btnHeight = btn.offsetHeight;
+
+        // random new position
+        const newX = Math.random() * (boxRect.width - btnWidth);
+        const newY = Math.random() * (boxRect.height - btnHeight - 40) + 40;
+
+        btn.style.left = newX + "px";
+        btn.style.top = newY + "px";
+    }
+
+    // Initial placement
+    moveButton();
+
+    btn.addEventListener("mouseover", moveButton);
+    btn.addEventListener("click", () => {
+        btn.innerText = "You Got Me!";
+        btn.style.background = "linear-gradient(135deg, #39ff9e, #00d46a)";
+        btn.style.boxShadow = "0 12px 30px rgba(0,255,150,0.6)";
+    });
+</script>
+
+</body>
+</html>
